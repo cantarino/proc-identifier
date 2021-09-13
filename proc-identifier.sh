@@ -33,13 +33,14 @@ do
     proc_error "O processo $proc esta sendo executado, \n     contudo nao possuo permissao para ler o seu arquivo /proc/$proc/$PROCFILE."
     continue;
   fi  
-
+  proc_name=$( cat /proc/$proc/status | grep "Name" | awk '{ print $2 }')
+  state=$( cat /proc/$proc/status | grep "State" | awk '{ print $2 " " $3 }')
   exe_file=$( ls -l /proc/$proc | grep "exe" | awk '{ print $11 }' )
   cwd_file=$( ls -l /proc/$proc | grep "cwd" | awk '{ print $11 }' )
 
-  if [ -e "$exe_file" -a -e "$cwd_file" ]  
+  if [ -e "$proc_name" -a  -e "$state" -a  -e "$exe_file" -a -e "$cwd_file" ]  
   then                   
-    echo "   Processo #$proc iniciado por $exe_file e executando em $cwd_file."
+    echo "   Processo #$proc de nome $proc_name iniciado por $exe_file e executando em $cwd_file esta no estado $state."
   else
     proc_error "Nao consegui identificar o arquivo."
   fi 
