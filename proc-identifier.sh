@@ -38,7 +38,7 @@ do
   exe_file=$( ls -l /proc/$proc | grep "exe" | awk '{ print $11 }' )
   cwd_file=$( ls -l /proc/$proc | grep "cwd" | awk '{ print $11 }' )
 
-  if [ -e "$proc_name" -a  -e "$state" -a  -e "$exe_file" -a -e "$cwd_file" ]  
+  if [ -e "$exe_file" -a -e "$cwd_file" ]  
   then                   
     echo "   Processo #$proc de nome $proc_name iniciado por $exe_file e executando em $cwd_file esta no estado $state."
   else
