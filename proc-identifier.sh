@@ -35,10 +35,11 @@ do
   fi  
 
   exe_file=$( ls -l /proc/$proc | grep "exe" | awk '{ print $11 }' )
+  cwd_file=$( ls -l /proc/$proc | grep "cwd" | awk '{ print $11 }' )
 
-  if [ -e "$exe_file" ]  
+  if [ -e "$exe_file" -a -e "$cwd_file"]  
   then                   
-    echo "   Processo #$proc executado por $exe_file."
+    echo "   Processo #$proc iniciado por $exe_file executado em $cwd_file."
   else
     proc_error "Nao consegui identificar o arquivo."
   fi 
